@@ -17,6 +17,6 @@ const binarySearch = (list, item) => {
     }
   }
   return null;
-}
+};
 
 export default binarySearch;

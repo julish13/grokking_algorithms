@@ -6,4 +6,3 @@ test('binary-searchs', () => {
   expect(binarySearch(list, 3)).toEqual(1);
   expect(binarySearch(list, -1)).toEqual(null);
 });
-
