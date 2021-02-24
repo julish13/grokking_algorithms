@@ -18,17 +18,18 @@ const findLowestCostNode = (costs, processed) => {
     return null;
   }
   const [key] = _.minBy(notVisited, ([, value]) => value);
+
   return key;
 };
 
-const createPath = (graph, start, end, parents, path = []) => {
-  const [step] = Object.entries(parents).find(([, parent]) => parent === start);
+const createPath = (start, end, graph, parents, path = []) => {
+  const [, parent] = Object.entries(parents).find(([child]) => child === end);
 
-  path.push([start, step, graph[start][step]]);
-  if (step === end) {
+  path.unshift([parent, end, graph[parent][end]]);
+  if (parent === start) {
     return path;
   }
-  return createPath(graph, step, end, parents, path);
+  return createPath(start, parent, graph, parents, path);
 };
 
 const findShortestPath = (graph, start, end) => {
@@ -53,7 +54,7 @@ const findShortestPath = (graph, start, end) => {
     node = findLowestCostNode(costs, processed);
   }
 
-  const path = createPath(graph, start, end, parents);
+  const path = createPath(start, end, graph, parents);
 
   return {
     path,
